@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f0f0f0;
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+pre {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    max-width: 600px;
+    white-space: pre-wrap;
+}

@@ -1,39 +1,49 @@
+
+
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>🔊 Live Transcription</h1>
-<p>Click below to start or stop transcription:</p>
+<h1><i class="fas fa-broadcast-tower"></i> Live Transcription</h1>
 
-<button id="startBtn">▶️ Start Transcription</button>
-<button id="stopBtn" disabled>⏹️ Stop Transcription</button>
-
-<h3>📝 Transcript:</h3>
-<pre id="transcription">---</pre>
+<div class="card">
+    <p>Click the buttons below to start or stop real-time audio transcription:</p>
+    
+    <div class="button-group">
+        <button id="startBtn"><i class="fas fa-play"></i> Start Transcription</button>
+        <button id="stopBtn" disabled><i class="fas fa-stop"></i> Stop Transcription</button>
+    </div>
+    
+    <h3><i class="fas fa-file-alt"></i> Transcript:</h3>
+    <pre id="transcription">Waiting to start transcription...</pre>
+</div>
 
 <script>
     let source;
-
+    
     const startBtn = document.getElementById("startBtn");
     const stopBtn = document.getElementById("stopBtn");
     const transcriptBox = document.getElementById("transcription");
-
+    
     startBtn.addEventListener("click", () => {
         source = new EventSource("/stream");
-        transcriptBox.textContent = "---";
-
+        transcriptBox.textContent = "Listening...";
+        
         source.onmessage = function(event) {
             transcriptBox.textContent += event.data + "\n";
+            transcriptBox.scrollTop = transcriptBox.scrollHeight;
         };
-
+        
         source.onerror = function() {
-            transcriptBox.textContent += "\n[Disconnected]";
+            transcriptBox.textContent += "\n[Connection lost]";
             source.close();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
         };
-
+        
         startBtn.disabled = true;
         stopBtn.disabled = false;
     });
-
+    
     stopBtn.addEventListener("click", () => {
         if (source) {
             source.close();

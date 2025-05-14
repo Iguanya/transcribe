@@ -1,7 +1,10 @@
+
+
+
 <nav class="sidebar">
-    <h2>Transcribe</h2>
+    <h2><i class="fas fa-microphone"></i> Whisper App</h2>
     <ul>
-        <li><a href="/"> Home</a></li>
-        <li><a href="/live">Live Transcribe</a></li>
+        <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="/live" {% if request.path == '/live' %}class="active"{% endif %}><i class="fas fa-broadcast-tower"></i> Live Transcribe</a></li>
     </ul>
 </nav>

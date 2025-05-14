@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Live Transcriber</h1>
+<h1><i class="fas fa-home"></i> Transcribe</h1>
 
-<button id="recordBtn">Start Live Transcription</button>
-<p id="status">Click to start auto-transcribing every 30s</p>
+<div class="card">
+    <h2><i class="fas fa-microphone-alt"></i> Live Transcription</h2>
+    <p>Start auto-transcribing audio in 30-second intervals</p>
+    <button id="recordBtn"><i class="fas fa-play-circle"></i> Start Live Transcription</button>
+    <p id="status"><i class="fas fa-info-circle"></i> Click to start auto-transcribing every 30s</p>
+    
+    <h3><i class="fas fa-clipboard-list"></i> Live Transcription & Logs:</h3>
+    <pre id="transcription">Waiting to start transcription...</pre>
+</div>
 
-<h3>Live Transcription & Logs:</h3>
-<pre id="transcription" style="max-height: 300px; overflow-y: auto;">---</pre>
+<div class="card">
+    <h2><i class="fas fa-file-upload"></i> Upload Audio File</h2>
+    <p>Upload an audio file to get a complete transcription</p>
+    <form id="uploadForm">
+        <input type="file" name="audio_data" accept="audio/*" required />
+        <button type="submit"><i class="fas fa-upload"></i> Upload & Transcribe</button>
+    </form>
+    <h3><i class="fas fa-file-alt"></i> Transcription:</h3>
+    <pre id="fileTranscription">Waiting for file upload...</pre>
+</div>
 
-<h2>📁 Or Upload Audio File</h2>
-<form id="uploadForm">
-    <input type="file" name="audio_data" accept="audio/*" required />
-    <button type="submit">Upload & Transcribe</button>
-</form>
-
-<h3>Transcription:</h3>
-<pre id="transcription">---</pre>
+<script src="/static/script.js"></script>
 {% endblock %}

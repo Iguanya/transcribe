@@ -28,6 +28,10 @@ def run_whisper_stream():
     whisper_bin = os.path.expanduser("~/Projects/whisper.cpp/build/bin/whisper-stream")
     model_path = os.path.expanduser("~/Projects/whisper.cpp/models/ggml-medium.bin")
 
+    # whisper_bin = os.path.expanduser("~/Desktop/Django/whisper.cpp/build/bin/whisper-cli")
+    # model_path = os.path.expanduser("~/Desktop/Django/whisper.cpp/models/ggml-base.en.bin")
+
+
     stream_process = subprocess.Popen(
         [whisper_bin, "-m", model_path, "-t", "4", "--step", "500", "--length", "5000", "--language", "auto"],
         stdout=subprocess.PIPE,

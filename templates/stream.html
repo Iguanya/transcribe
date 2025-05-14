@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>🔊 Live Transcription</h1>
+<p>Click below to start or stop transcription:</p>
+
+<button id="startBtn">▶️ Start Transcription</button>
+<button id="stopBtn" disabled>⏹️ Stop Transcription</button>
+
+<h3>📝 Transcript:</h3>
+<pre id="transcription">---</pre>
+
+<script>
+    let source;
+
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const transcriptBox = document.getElementById("transcription");
+
+    startBtn.addEventListener("click", () => {
+        source = new EventSource("/stream");
+        transcriptBox.textContent = "---";
+
+        source.onmessage = function(event) {
+            transcriptBox.textContent += event.data + "\n";
+        };
+
+        source.onerror = function() {
+            transcriptBox.textContent += "\n[Disconnected]";
+            source.close();
+        };
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+    });
+
+    stopBtn.addEventListener("click", () => {
+        if (source) {
+            source.close();
+            transcriptBox.textContent += "\n[Stopped by user]";
+        }
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+    });
+</script>
+{% endblock %}

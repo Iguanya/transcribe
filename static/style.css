@@ -21,6 +21,9 @@
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --radius: 8px;
   --transition: all 0.3s ease;
+
+  --primary-rgb: 59, 130, 246; /* Blue color in RGB format (customize as needed) */
+  --primary-dark: #2563eb; /* Darker shade of primary color */
 }
 
 /* Reset & Base Styles */
@@ -43,52 +46,200 @@ body {
   min-height: 100vh;
 }
 
-/* Sidebar */
-/* Sidebar */
+/* Enhanced Sidebar */
 .sidebar {
-  width: 250px;
+  width: 260px;
   background: var(--light);
   color: var(--dark);
-  padding: 2rem 1rem;
-  transition: var(--transition);
+  padding: 2rem 1.25rem;
+  transition: all 0.3s ease;
   border-right: 1px solid var(--gray-200);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
+/* Sidebar Header */
 .sidebar h2 {
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--gray-300);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 2px solid var(--gray-200);
   font-size: 1.5rem;
+  font-weight: 600;
   color: var(--dark);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
+.sidebar h2 i {
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+/* Navigation List */
 .sidebar ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
+/* Navigation Links */
 .sidebar a {
-  display: block;
-  color: var(--gray-700);
-  text-decoration: none;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  transition: var(--transition);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
 }
 
-.sidebar a:hover, 
+/* Icon styling */
+.sidebar a i {
+  font-size: 1.1rem;
+  width: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+/* Hover and Active States */
+.sidebar a:hover {
+  background: rgba(var(--primary-rgb), 0.08);
+  color: var(--primary);
+}
+
+.sidebar a:hover i {
+  transform: scale(1.1);
+}
+
 .sidebar a.active {
-  background: var(--primary-light);
+  background: var(--primary);
   color: white;
+  box-shadow: 0 4px 8px rgba(var(--primary-rgb), 0.25);
+}
+
+.sidebar a.active i {
+  color: white;
+}
+
+/* Add subtle hover effect */
+.sidebar a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.sidebar a:hover::before {
+  transform: scaleY(1);
+}
+
+.sidebar a.active::before {
+  transform: scaleY(1);
+}
+
+/* Responsive sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+}
+
+/* Optional: Collapsible sidebar functionality */
+.sidebar.collapsed {
+  width: 70px;
+  padding: 2rem 0.5rem;
+}
+
+.sidebar.collapsed h2 span {
+  display: none;
+}
+
+.sidebar.collapsed a span {
+  display: none;
+}
+
+.sidebar.collapsed a {
+  justify-content: center;
+  padding: 0.85rem;
+}
+
+.sidebar.collapsed a i {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  position: fixed;
+  top: 1rem;
+  z-index: 100;
+  border: none;
+  background: var(--primary);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  left: 220px; /* Position it near the edge of expanded sidebar */
+}
+
+.sidebar-toggle:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+/* Always show the toggle button on all screen sizes */
+.sidebar-toggle {
+  display: flex;
+}
+
+/* Adjust position when sidebar is collapsed */
+.sidebar.collapsed + .sidebar-toggle,
+body:has(.sidebar.collapsed) .sidebar-toggle {
+  left: 35px; /* Move it when sidebar is collapsed */
+}
+
+/* Adjust toggle position on smaller screens */
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    top: 0.75rem;
+    left: 200px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .sidebar.collapsed + .sidebar-toggle,
+  body:has(.sidebar.collapsed) .sidebar-toggle {
+    left: 25px;
+  }
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
 }
 
 
@@ -130,7 +281,7 @@ p {
 
 /* Buttons */
 button {
-  background: var(--primary);
+  background: var(--primary-light);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -161,12 +312,12 @@ button:disabled {
 }
 
 #recordBtn {
-  background: var(--success);
+  background: var(--primary-light);
   margin-bottom: 1rem;
 }
 
 #recordBtn:hover {
-  background: #3db890;
+  background: var(--primary-light);
 }
 
 #recordBtn.recording {

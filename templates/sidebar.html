@@ -15,17 +15,26 @@
         <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}>
             <i class="fas fa-home"></i> <span>Home</span>
         </a></li>
+
+        <li><a href="/upload_audio" {% if request.path == '/upload_audio' %}class="active"{% endif %}>
+            <i class="fas fa-broadcast-tower"></i> <span>Upload</span>
+        </a></li>
+
         <li><a href="/live" {% if request.path == '/live' %}class="active"{% endif %}>
             <i class="fas fa-broadcast-tower"></i> <span>Live Transcribe</span>
         </a></li>
+
         <li><a href="/history" {% if request.path == '/history' %}class="active"{% endif %}>
             <i class="fas fa-history"></i> <span>History</span>
         </a></li>
+
         <li><a href="/settings" {% if request.path == '/settings' %}class="active"{% endif %}>
             <i class="fas fa-cog"></i> <span>Settings</span>
         </a></li>
+
     </ul>
-    <div class="sidebar-footer">
+
+        <div class="sidebar-footer">
         <a href="/help" {% if request.path == '/help' %}class="active"{% endif %}>
             <i class="fas fa-question-circle"></i> <span>Help</span>
         </a>

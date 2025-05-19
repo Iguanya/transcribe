@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2><i class="fas fa-file-upload"></i> Upload Audio File</h2>
+    <p>Upload an audio file to get a complete transcription</p>
+    <form id="uploadForm">
+        <input type="file" name="audio_data" accept="audio/*" required />
+        <button type="submit"><i class="fas fa-upload"></i> Upload & Transcribe</button>
+    </form>
+    <h3><i class="fas fa-file-alt"></i> Transcription:</h3>
+    <pre id="fileTranscription">Waiting for file upload...</pre>
+</div>
+
+<script src="/static/script.js"></script>
+{% endblock %}

@@ -188,31 +188,33 @@ body {
 .sidebar-toggle {
   position: fixed;
   top: 1rem;
+  left: 220px;
   z-index: 100;
-  border: none;
-  background: var(--primary);
+  width: 32px;
+  height: 32px;
+  background: #007BFF; /* Bootstrap blue or your brand blue */
   color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  border: none;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  left: 220px; /* Position it near the edge of expanded sidebar */
+  font-size: 16px;
 }
 
 .sidebar-toggle:hover {
-  background: var(--primary-dark);
+  background: #0056b3; /* Darker blue on hover */
   transform: scale(1.05);
 }
 
-/* Always show the toggle button on all screen sizes */
-.sidebar-toggle {
-  display: flex;
+.sidebar-toggle i {
+  transition: transform 0.3s ease;
 }
+
+
 
 /* Adjust position when sidebar is collapsed */
 .sidebar.collapsed + .sidebar-toggle,

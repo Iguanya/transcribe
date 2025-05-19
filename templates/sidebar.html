@@ -1,23 +1,13 @@
 
-
-
-<!-- <nav class="sidebar">
-    <h2><i class="fas fa-microphone"></i> Whisper App</h2>
-    <ul>
-        <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="/live" {% if request.path == '/live' %}class="active"{% endif %}><i class="fas fa-broadcast-tower"></i> Live Transcribe</a></li>
-    </ul>
-</nav> -->
-
 <nav class="sidebar">
-    <h2><i class="fas fa-microphone-alt"></i> <span>Audiolyze</span></h2>
+    <h2></i> <span>Audiolyze</span></h2>
     <ul>
         <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}>
             <i class="fas fa-home"></i> <span>Home</span>
         </a></li>
 
         <li><a href="/upload_audio" {% if request.path == '/upload_audio' %}class="active"{% endif %}>
-            <i class="fas fa-broadcast-tower"></i> <span>Upload</span>
+            <i class="fas fa-upload"></i> <span>Upload Audio</span>
         </a></li>
 
         <li><a href="/live" {% if request.path == '/live' %}class="active"{% endif %}>
@@ -47,25 +37,36 @@
 </button>
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.querySelector('.sidebar');
-        
+        const icon = sidebarToggle.querySelector('i');
+
+        function updateIcon(isCollapsed) {
+            if (isCollapsed) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        }
+
         if (sidebarToggle && sidebar) {
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('collapsed');
-                
-                // Save the state to localStorage
-                const isCollapsed = sidebar.classList.contains('collapsed');
-                localStorage.setItem('sidebarCollapsed', isCollapsed);
-            });
-            
-            // Check if sidebar was collapsed previously
+            // Restore sidebar state
             const wasCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
             if (wasCollapsed) {
                 sidebar.classList.add('collapsed');
             }
+
+            updateIcon(wasCollapsed);
+
+            sidebarToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('collapsed');
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+                updateIcon(isCollapsed);
+            });
         }
     });
-    
 </script>

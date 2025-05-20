@@ -69,3 +69,39 @@ document.getElementById("uploadForm").addEventListener("submit", async (e) => {
     document.getElementById("transcription").textContent = data.transcription;
     status.textContent = "Done";
 });
+
+// toggle bar js
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const sidebar = document.querySelector(".sidebar");
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener("click", function () {
+      sidebar.classList.toggle("collapsed");
+      localStorage.setItem(
+        "sidebarCollapsed",
+        sidebar.classList.contains("collapsed")
+      );
+    });
+    if (localStorage.getItem("sidebarCollapsed") === "true") {
+      sidebar.classList.add("collapsed");
+    }
+  }
+});
+
+// pop up js
+document.addEventListener("DOMContentLoaded", () => {
+  const getStartedBtn = document.getElementById("getStartedBtn");
+  const optionsMenu = document.getElementById("transcribeOptions");
+
+  getStartedBtn.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent click from bubbling
+    optionsMenu.classList.toggle("dropdown-hidden");
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!optionsMenu.contains(event.target) && event.target !== getStartedBtn) {
+      optionsMenu.classList.add("dropdown-hidden");
+    }
+  });
+});

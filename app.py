@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 import time
 from datetime import datetime
 
+# from dummymodel import DummyModel
+
 app = Flask(__name__)
 
 # Load environment variables
@@ -19,6 +21,9 @@ load_dotenv()
 whisper_bin = os.path.expanduser(os.getenv("WHISPER_BIN"))
 model_path = os.path.expanduser(os.getenv("MODEL_PATH"))
 
+# whisper_bin = ''
+# model_path = ''
+
 output_queue = Queue()
 stream_process = None
 
@@ -26,6 +31,8 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 model = whisper.load_model("small")
+
+# model = DummyModel("small")
 
 # output_queue = queue.Queue()
 output_queue = Queue()
@@ -60,6 +67,10 @@ def run_whisper_stream():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/upload_audio')
+def upload_audio():
+    return render_template('upload_audio.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -114,3 +125,6 @@ def live_transcription_page():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5001)

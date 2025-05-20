@@ -3,24 +3,15 @@
 {% block content %}
 
 <!-- Main Content -->
+   
     <main class="content">
       <!-- Hero Section -->
       <section class="hero" style="text-align:center; padding: 1rem 1rem; background: url('hero-bg.jpg') center/cover no-repeat; color: white; border-radius: var(--radius);">
         <h1> Transcribe Smarter with Audiolyze</h1>
         <p>Turn audio into accurate text in seconds using OpenAI’s Whisper model. Upload files or record live — no installs, just fast, clean transcription in your browser.</p>
 
-        <!-- <div class="button-group" style="justify-content:center;">
+        <div class="button-group" style="justify-content:center;">
           <button id="getStartedBtn">Start Transcribing</button>
-        </div> -->
-
-        <div class="button-group" style="justify-content: center; position: relative;">
-          <button id="getStartedBtn">Start Transcribing</button>
-        
-          <!-- Hidden dropdown menu -->
-          <div id="transcribeOptions" class="popup-menu hidden">
-            <button onclick="window.location.href='/live'">Live Transcribe</button>
-            <button onclick="window.location.href='/upload_audio'">Upload Audio</button>
-          </div>
         </div>
         
       </section>
@@ -68,42 +59,7 @@
     </main>
   </div>
 
-  <script type="text/javascript" src="/static/script.js">
-    // toggle bar js
-    document.addEventListener('DOMContentLoaded', function() {
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      const sidebar = document.querySelector('.sidebar');
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-          sidebar.classList.toggle('collapsed');
-          localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
-        });
-        if (localStorage.getItem('sidebarCollapsed') === 'true') {
-          sidebar.classList.add('collapsed');
-        }
-      }
-    });
-
-    // pop up js
-    document.addEventListener('DOMContentLoaded', () => {
-      const getStartedBtn = document.getElementById('getStartedBtn');
-      const optionsMenu = document.getElementById('transcribeOptions');
-  
-      getStartedBtn.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent it from closing immediately
-        optionsMenu.classList.toggle('hidden');
-      });
-  
-      // Hide menu if clicking anywhere else
-      document.addEventListener('click', (event) => {
-        if (!optionsMenu.contains(event.target)) {
-          optionsMenu.classList.add('hidden');
-        }
-      });
-    });
-  
-  </script>
-
+  <script type="text/javascript" src="/static/script.js"></script>
 
 {% endblock %}
 

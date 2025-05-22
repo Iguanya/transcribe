@@ -5,6 +5,7 @@ from threading import Thread
 import threading
 from queue import Queue, Empty
 # import queue
+import tempfile
 import os
 from dotenv import load_dotenv
 import time
@@ -68,30 +69,33 @@ def run_whisper_stream():
 def index():
     return render_template('index.html')
 
-@app.route('/upload_audio')
+@app.route("/upload_audio")
 def upload_audio():
-    return render_template('upload_audio.html')
+    return render_template("upload_audio.html")  # Ensure this exists
 
-@app.route('/upload', methods=['POST'])
+@app.route("/upload", methods=["POST"])
 def upload():
-    audio = request.files['audio_data']
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = f"{timestamp}.webm"
-    audio_path = os.path.join(UPLOAD_FOLDER, filename)
-    audio.save(audio_path)
+    if "audio_data" not in request.files:
+        return jsonify({"error": "No audio file uploaded"}), 400
 
-    print(f"[INFO] Transcribing {filename}...")
-    result = model.transcribe(audio_path)
-    transcription = result["text"]
-    print(f"[TRANSCRIPTION] {transcription}")
+    file = request.files["audio_data"]
 
-    # Save transcription to a text file
-    transcript_filename = f"{timestamp}.txt"
-    transcript_path = os.path.join("transcripts", transcript_filename)
-    os.makedirs("transcripts", exist_ok=True)
+    if file.filename == "":
+        return jsonify({"error": "Empty filename"}), 400
 
-    with open(transcript_path, "w", encoding="utf-8") as f:
-        f.write(transcription)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
+        file.save(tmp.name)
+        temp_path = tmp.name
+
+    try:
+        print(f"[INFO] Transcribing file: {temp_path}")
+        result = model.transcribe(temp_path)
+        transcription = result["text"]
+    except Exception as e:
+        print(f"[ERROR] Transcription failed: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        os.remove(temp_path)
 
     return jsonify({"transcription": transcription})
 
@@ -124,7 +128,4 @@ def live_transcription_page():
     return render_template('stream.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-# if __name__ == '__main__':
-#     app.run(debug=True, port=5001)
+    app.run(debug=True, host="0.0.0.0", port=5000)

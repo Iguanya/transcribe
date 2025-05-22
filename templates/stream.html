@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1><i class="fas fa-broadcast-tower"></i> Live Transcription</h1>
+
 
 <div class="card">
+
+  <h1><i class="fas fa-broadcast-tower"></i> Live Transcription</h1>
+
     <p>Click the buttons below to start or stop real-time audio transcription:</p>
     
     <div class="button-group">
-        <button id="startBtn"><i class="fas fa-play"></i> Start Transcription</button>
+        <button id="startStream"><i class="fas fa-play"></i> Start Transcription</button>
         <button id="stopBtn" disabled><i class="fas fa-stop"></i> Stop Transcription</button>
     </div>
     
     <h3><i class="fas fa-file-alt"></i> Transcript:</h3>
     <pre id="transcription">Waiting to start transcription...</pre>
-</div>
 
+<hr />
+</div>
 <script src="/static/script.js"></script>
 {% endblock %}
 
